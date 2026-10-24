@@ -1,0 +1,2 @@
+# weiqi.com
+weiqi
