@@ -1,2 +1,3 @@
 # weiqi.com
-A weiqi app for everyone.
+A free weiqi app for everyone.
+
