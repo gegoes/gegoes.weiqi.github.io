@@ -2,259 +2,1196 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f6f4ed">
-  <meta name="description" content="A welcoming, complete Go (weiqi) board for playing, learning, and reviewing games.">
-  <title>weiqi.com — A quiet place to play Go for free</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f5ee">
+  <meta name="description" content="A soft, relaxing place to play Go (weiqi) freely in your browser.">
+  <title>weiqi · a quiet place to play</title>
   <style>
-    :root{color-scheme:light;--paper:#f6f4ed;--surface:#fffefa;--ink:#242923;--muted:#73776e;--line:#e5e3d9;--green:#536d57;--green-dark:#38513e;--red:#b54f38;--wood:#e8bf7d;--wood-light:#f0d39e;--white-stone:#faf9f3;--black-stone:#252826;--shadow:0 18px 52px #342d2010}
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 14% 5%,#e7eadb 0,transparent 37%),var(--paper);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}button,select,input{font:inherit}button{color:inherit}button:focus-visible,select:focus-visible,input:focus-visible,canvas:focus-visible{outline:3px solid #7e997e;outline-offset:3px}.shell{max-width:1370px;margin:auto;padding:0 42px 30px}.topbar{height:75px;border-bottom:1px solid #3b403716;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:11px;font:600 21px Georgia,serif;letter-spacing:.02em}.brand-mark{width:31px;height:31px;border-radius:50%;background:var(--black-stone);position:relative;box-shadow:inset -4px -5px 7px #0005}.brand-mark:after{content:"";position:absolute;width:11px;height:11px;border-radius:50%;background:#faf8ee;top:6px;left:7px;box-shadow:2px 2px 3px #0004}.top-links{display:flex;align-items:center;gap:23px}.quiet-button,.icon-button{border:0;background:transparent;cursor:pointer;color:var(--muted)}.quiet-button{font-size:13px}.quiet-button:hover,.icon-button:hover{color:var(--ink)}.layout{display:grid;grid-template-columns:minmax(0,1fr) 318px;gap:35px;padding:31px 0 20px;align-items:start}.main-column{min-width:0}.page-heading{display:flex;align-items:flex-end;justify-content:space-between;margin:0 2px 19px}.eyebrow{text-transform:uppercase;letter-spacing:.14em;color:var(--green);font-size:10px;font-weight:700;margin:0 0 6px}.page-heading h1{font:400 28px/1.15 Georgia,"Times New Roman",serif;letter-spacing:-.035em;margin:0}.page-subtitle{font-size:12px;color:var(--muted);margin:6px 0 0}.board-size{height:37px;padding:0 31px 0 11px;border:1px solid var(--line);background:var(--surface);border-radius:4px;color:#41463e;font-size:12px;cursor:pointer}.board-frame{padding:clamp(14px,3vw,28px);background:#fffefa;border:1px solid #e9e7dd;border-radius:5px;box-shadow:var(--shadow);position:relative}.board-wrap{max-width:680px;width:100%;margin:auto;aspect-ratio:1;position:relative}.board-wrap:before{content:"";position:absolute;inset:0;border:1px solid #ddbd82;background-color:var(--wood);background-image:radial-gradient(ellipse at 22% 35%,#fff2cd45,transparent 46%),radial-gradient(ellipse at 79% 70%,#c4934b24,transparent 48%),repeating-linear-gradient(1deg,transparent 0px,transparent 5px,#99672e0a 6px,transparent 8px);box-shadow:inset 0 0 20px #8f64241c}canvas{display:block;width:100%;height:100%;position:relative;touch-action:manipulation;cursor:crosshair}.board-caption{position:absolute;right:28px;bottom:11px;font-size:9px;color:#795e36;letter-spacing:.12em;text-transform:uppercase;pointer-events:none}.board-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:17px}.move-count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:12px}.move-count strong{color:var(--ink);font-weight:600}.actions{display:flex;gap:8px}.btn{min-height:37px;padding:0 13px;border:1px solid var(--line);border-radius:4px;background:var(--surface);font-size:11px;font-weight:600;cursor:pointer;transition:background .16s,border-color .16s}.btn:hover:not(:disabled){background:#f5f3ea;border-color:#cbc9bb}.btn:disabled{opacity:.45;cursor:not-allowed}.btn-primary{background:var(--green-dark);border-color:var(--green-dark);color:white}.btn-primary:hover:not(:disabled){background:#2e4535;border-color:#2e4535}.btn-danger{color:var(--red)}.sidebar{display:flex;flex-direction:column;gap:14px;padding-top:5px}.panel{border:1px solid var(--line);background:var(--surface);border-radius:4px;box-shadow:0 4px 14px #342d2008}.turn-panel{padding:17px 17px 14px}.panel-label{font-size:9px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);font-weight:700}.turn-display{display:flex;align-items:center;gap:12px;margin:11px 0 12px}.turn-stone{width:35px;height:35px;border-radius:50%;background:var(--black-stone);box-shadow:inset -4px -5px 9px #0007,0 2px 3px #0002;flex:none}.turn-stone.white{background:var(--white-stone);border:1px solid #dddcd3;box-shadow:inset -4px -5px 8px #dbd9ce,0 2px 3px #0002}.turn-title{font:400 19px Georgia,serif}.turn-caption{color:var(--muted);font-size:11px;margin-top:3px}.turn-help{font-size:11px;color:var(--muted);line-height:1.55;margin:0;border-top:1px solid var(--line);padding-top:11px}.capture-row{display:flex;align-items:center;gap:8px;margin-top:10px}.mini-stone{width:14px;height:14px;border-radius:50%;background:var(--black-stone);box-shadow:inset -2px -2px 4px #0007}.mini-stone.white{background:var(--white-stone);border:1px solid #dad9d0}.capture-text{font-size:11px;color:#686b63}.capture-text strong{color:var(--ink);font-variant-numeric:tabular-nums}.score-panel{padding:16px 17px 14px}.score-head{display:flex;align-items:center;justify-content:space-between}.score-head h2,.settings-panel h2,.record-panel h2,.learn-panel h2{font:400 15px Georgia,serif;margin:0}.score-rule{font-size:9px;color:var(--muted)}.score-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;margin-top:14px;font-size:11px}.player-label{display:flex;align-items:center;gap:7px}.score-value{font-variant-numeric:tabular-nums;color:var(--muted);min-width:20px;text-align:right}.score-total{font-size:16px;font-variant-numeric:tabular-nums;font-weight:600;min-width:35px;text-align:right}.score-note{font-size:10px;line-height:1.45;color:var(--muted);margin:12px 0 0;padding-top:10px;border-top:1px solid var(--line)}.score-result{margin-top:10px;font-size:11px;font-weight:650;color:var(--green-dark)}.settings-panel{padding:15px 17px}.settings-panel h2{margin-bottom:13px}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px 10px}.field label{display:block;font-size:10px;color:var(--muted);margin-bottom:5px}.field select,.field input{width:100%;height:33px;border:1px solid var(--line);border-radius:3px;background:#fffefa;padding:0 8px;font-size:11px;color:var(--ink)}.settings-foot{font-size:10px;line-height:1.45;color:var(--muted);margin:11px 0 0}.record-panel{overflow:hidden}.record-header{display:flex;align-items:center;justify-content:space-between;padding:13px 15px 10px}.record-header h2{font-size:14px}.record-tools{display:flex;gap:5px}.icon-button{font-size:10px;padding:4px}.move-list{border-top:1px solid var(--line);list-style:none;padding:5px 9px;margin:0;max-height:136px;overflow:auto;scrollbar-color:#d9d6cc transparent}.move-list li{height:25px;display:grid;grid-template-columns:29px 19px 1fr;align-items:center;padding:0 5px;border-radius:2px;font-size:10px;color:#62665e;font-variant-numeric:tabular-nums}.move-list li:nth-child(odd){background:#f8f7f1}.move-number{color:#93958d}.record-stone{width:10px;height:10px;border-radius:50%;background:var(--black-stone)}.record-stone.white{background:var(--white-stone);border:1px solid #d2d1c8}.empty-record{padding:16px 14px;color:var(--muted);font-size:10px}.learn-panel{padding:15px 16px}.learn-panel h2{margin-bottom:9px}.learn-panel details{border-top:1px solid var(--line);padding:8px 0}.learn-panel summary{font-size:10px;color:#42463f;cursor:pointer}.learn-panel details p{font-size:10px;line-height:1.55;color:var(--muted);margin:7px 0 2px}.game-banner{margin-bottom:14px;padding:10px 13px;background:#f0eee4;border-left:3px solid var(--green);font-size:11px;line-height:1.5;display:none}.game-banner.visible{display:block}.game-banner strong{color:var(--green-dark)}.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,12px);padding:10px 15px;background:#292d28;color:white;border-radius:4px;font-size:11px;opacity:0;transition:opacity .18s,transform .18s;pointer-events:none;z-index:4}.toast.visible{opacity:1;transform:translate(-50%,0)}.file-input{display:none}.footer{display:flex;justify-content:space-between;border-top:1px solid #3b403716;margin-top:25px;padding-top:13px;color:#898b82;font-size:10px}.footer span:last-child{letter-spacing:.04em}
-    @media(max-width:880px){.shell{padding-left:22px;padding-right:22px}.layout{grid-template-columns:minmax(0,1fr) 286px;gap:20px}.board-frame{padding:17px}.sidebar{gap:10px}}
-    @media(max-width:680px){.shell{padding:0 15px 22px}.topbar{height:61px}.top-links{gap:13px}.layout{grid-template-columns:1fr;gap:16px;padding-top:22px}.page-heading{margin-bottom:14px}.page-heading h1{font-size:25px}.board-frame{padding:12px}.board-toolbar{margin-top:12px;flex-wrap:wrap}.actions{gap:6px}.btn{padding:0 10px;min-height:35px}.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:0}.turn-panel,.score-panel,.settings-panel,.record-panel,.learn-panel{min-width:0}.record-panel{grid-column:1/-1}.learn-panel{grid-column:1/-1}.move-list{max-height:112px}.board-caption{right:12px;bottom:5px;font-size:7px}.footer{margin-top:18px}.page-subtitle{font-size:11px}}
-    @media(max-width:390px){.shell{padding-right:11px;padding-left:11px}.board-frame{padding:9px}.sidebar{gap:8px}.turn-panel,.score-panel,.settings-panel{padding-left:12px;padding-right:12px}.actions .btn{font-size:10px;padding:0 8px}.top-links{gap:8px}.quiet-button{font-size:11px}}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+    :root {
+      --paper: #f8f5ee;
+      --surface: #fffdfc;
+      --ink: #3a3f37;
+      --muted: #9b978b;
+      --line: #e5e3d9;
+      --green: #5a7557;
+      --green-dark: #3c543b;
+      --red: #b85b44;
+      --wood: #e8d5a3;
+      --wood-light: #f0e0a8;
+      --white-stone: #ffffff;
+      --black-stone: #1a1c1e;
+      --shadow: 0 20px 60px rgba(45, 40, 25, 0.08);
+      --shadow-stone: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at 12% 8%, #f2efe7 0%, transparent 40%), var(--paper);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    header {
+      height: 70px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font: 600 22px Georgia, serif;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .logo::before {
+      content: "";
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--black-stone);
+      box-shadow: inset -3px -4px 5px rgba(0, 0, 0, 0.2);
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--ink); }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 28px;
+      padding: 28px 0;
+    }
+    .main-board {
+      min-width: 0;
+    }
+    .board-wrapper {
+      background: var(--wood);
+      border-radius: 14px;
+      padding: clamp(16px, 3vw, 32px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      background: var(--white-stone);
+      box-shadow: var(--shadow-stone);
+    }
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      gap: 12px;
+    }
+    .move-info {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn:hover { background: #faf8f4; }
+    .btn-primary {
+      background: var(--green-dark);
+      color: white;
+      border-color: var(--green-dark);
+    }
+    .btn-primary:hover { background: #2e442e; }
+    .btn-ghost {
+      background: transparent;
+    }
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .panel {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    .panel h2 {
+      font-size: 15px;
+      margin: 0 0 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .panel h3 {
+      font-size: 14px;
+      margin: 0 0 10px;
+      color: var(--ink);
+    }
+    .panel p { margin: 0 0 8px; font-size: 13px; }
+    .turn-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .stone-indicator {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.15);
+    }
+    .black-indicator { background: var(--black-stone); }
+    .white-indicator { background: var(--white-stone); box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.1); }
+    .captures {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .capture-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      padding: 4px 0;
+    }
+    .score-row span { color: var(--muted); }
+    .settings-grid {
+      display: grid;
+      gap: 10px;
+    }
+    select {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      font-size: 13px;
+    }
+    .move-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 140px;
+      overflow-y: auto;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 12px;
+    }
+    .move-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 2px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+    }
+    .learn details { font-size: 12px; }
+    .learn summary { cursor: pointer; color: var(--green-dark); margin-bottom: 4px; }
+    .learn p { color: var(--muted); font-size: 12px; }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 13px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      z-index: 100;
+    }
+    .toast.visible { opacity: 1; transform: translateY(0); }
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    @media (max-width: 780px) {
+      .layout { grid-template-columns: 1fr; }
+      .board-wrapper { padding: 14px; }
+    }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <header class="topbar">
-      <a class="brand" href="index.html" aria-label="weiqi.com home"><span class="brand-mark" aria-hidden="true"></span>weiqi.com</a>
-      <nav class="top-links" aria-label="Game tools">
-        <button class="quiet-button" id="importButton" type="button">Import SGF</button>
-        <button class="quiet-button" id="exportButton" type="button">Export SGF</button>
-        <input class="file-input" id="sgfFile" type="file" accept=".sgf,.txt,text/plain">
+  <header>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:100%">
+      <a href="#" class="logo">weiqi</a>
+      <nav>
+        <a href="#" id="importSgf">Import SGF</a>
       </nav>
-    </header>
-    <main class="layout">
-      <section class="main-column" aria-label="Go board">
-        <header class="page-heading">
-          <div><p class="eyebrow">The way of play</p><h1>A quiet place to play.</h1><p class="page-subtitle">An open board. A game that grows one move at a time.</p></div>
-          <select class="board-size" id="boardSize" aria-label="Board size"><option value="19">19 × 19</option><option value="13">13 × 13</option><option value="9">9 × 9</option></select>
-        </header>
-        <div class="game-banner" id="gameBanner" role="status"></div>
-        <div class="board-frame">
-          <div class="board-wrap"><canvas id="board" role="img" tabindex="0" aria-label="Go board. Click an intersection to place a stone."></canvas><span class="board-caption">weiqi · 围棋</span></div>
+    </div>
+  </header>
+  <main class="container">
+    <div class="layout">
+      <section class="main-board">
+        <div class="board-wrapper">
+          <canvas id="board" width="600" height="600" role="img" tabindex="0" aria-label="Go board. Click to place a stone."></canvas>
+          <input type="file" id="sgfFile" accept=".sgf,.txt,text/plain" style="display:none">
         </div>
-        <div class="board-toolbar">
-          <div class="move-count">Move <strong id="moveCount">0</strong><span id="lastMoveLabel"></span></div>
-          <div class="actions"><button class="btn" id="undoButton" type="button" title="Undo the last move">↶ Undo</button><button class="btn" id="passButton" type="button" title="Pass your turn">Pass</button><button class="btn btn-danger" id="resignButton" type="button">Resign</button><button class="btn btn-primary" id="newGameButton" type="button">New game</button></div>
+        <div class="toolbar">
+          <div class="move-info">
+            Move <strong id="moveCount">0</strong>
+          </div>
+          <div class="actions">
+            <button class="btn btn-ghost" id="undoBtn">Undo</button>
+            <button class="btn btn-ghost" id="passBtn">Pass</button>
+            <button class="btn btn-ghost" id="resignBtn">Resign</button>
+            <button class="btn btn-primary" id="newGameBtn">New Game</button>
+          </div>
         </div>
       </section>
-      <aside class="sidebar" aria-label="Game information">
-        <section class="panel turn-panel" aria-live="polite">
-          <div class="panel-label">To play</div>
-          <div class="turn-display"><span class="turn-stone" id="turnStone" aria-hidden="true"></span><div><div class="turn-title" id="turnTitle">Black</div><div class="turn-caption" id="turnCaption">Black to play</div></div></div>
-          <p class="turn-help" id="turnHelp">Place a stone on any empty intersection. Surround territory and capture stones to win.</p>
-          <div class="capture-row"><span class="mini-stone" aria-hidden="true"></span><span class="capture-text">Captured by Black <strong id="blackCaptures">0</strong></span></div>
-          <div class="capture-row"><span class="mini-stone white" aria-hidden="true"></span><span class="capture-text">Captured by White <strong id="whiteCaptures">0</strong></span></div>
-        </section>
-        <section class="panel score-panel" aria-label="Estimated score">
-          <div class="score-head"><h2>Score estimate</h2><span class="score-rule">Area · Chinese</span></div>
-          <div class="score-row"><span class="player-label"><span class="mini-stone"></span>Black</span><span class="score-value" id="blackTerritory">0 area</span><strong class="score-total" id="blackScore">0</strong></div>
-          <div class="score-row"><span class="player-label"><span class="mini-stone white"></span>White</span><span class="score-value" id="whiteTerritory">0 area</span><strong class="score-total" id="whiteScore">6.5</strong></div>
-          <p class="score-note" id="scoreNote">Estimate uses stones and surrounded empty intersections. Neutral territory is not counted.</p>
-          <div class="score-result" id="scoreResult" hidden></div>
-        </section>
-        <section class="panel settings-panel">
-          <h2>Game settings</h2>
-          <div class="settings-grid">
-            <div class="field"><label for="opponent">Play mode</label><select id="opponent"><option value="local">Two players</option><option value="computer">Practice · computer</option></select></div>
-            <div class="field"><label for="komi">Komi</label><select id="komi"><option value="6.5">6.5</option><option value="7.5">7.5</option><option value="0.5">0.5</option><option value="0">0</option></select></div>
-            <div class="field"><label for="handicap">Handicap</label><select id="handicap"><option value="0">None</option><option value="2">2 stones</option><option value="3">3 stones</option><option value="4">4 stones</option><option value="5">5 stones</option><option value="6">6 stones</option><option value="7">7 stones</option><option value="8">8 stones</option><option value="9">9 stones</option></select></div>
-            <div class="field"><label for="coordinateToggle">Coordinates</label><select id="coordinateToggle"><option value="on">Show</option><option value="off">Hide</option></select></div>
+      <aside class="sidebar">
+        <section class="panel">
+          <h3 id="turnTitle">Black to play</h3>
+          <p id="turnHelp">Click an empty intersection to place a stone. Remove your opponent's stones to capture them.</p>
+          <div class="captures">
+            <div class="capture-item"><span class="stone-indicator black-indicator"></span>Black <strong id="blackCaptures">0</strong></div>
+            <div class="capture-item"><span class="stone-indicator white-indicator"></span>White <strong id="whiteCaptures">0</strong></div>
           </div>
-          <p class="settings-foot">Handicap stones are placed before the game; White plays first.</p>
         </section>
-        <section class="panel record-panel">
-          <div class="record-header"><h2>Move record</h2><div class="record-tools"><button class="icon-button" id="clearRecordButton" type="button" title="Start a new game">New record</button></div></div>
-          <ol class="move-list" id="moveList" aria-label="Game move record"><li class="empty-record">Your first move is waiting.</li></ol>
+        <section class="panel">
+          <h2>Score estimate</h2>
+          <div class="score-row"><span>Black</span><span id="blackScore">0</span></div>
+          <div class="score-row"><span>White</span><span id="whiteScore">6.5</span></div>
         </section>
-        <section class="panel learn-panel">
-          <h2>A few useful things</h2>
-          <details><summary>Liberties, capture &amp; suicide</summary><p>A stone's liberties are the empty intersections beside it. Stones joined along the grid share liberties. Remove an opposing group when its last liberty is filled. A move that leaves your own group without liberties is forbidden, unless that move captures first.</p></details>
-          <details><summary>Ko, passing &amp; ending</summary><p>You cannot recreate an earlier board position. Pass when you have no useful moves; two consecutive passes end the game and begin scoring.</p></details>
-          <details><summary>How to read the score</summary><p>This board estimates Chinese area scoring: each living stone and each empty point surrounded by only one color counts as one point. White receives komi for going second. Disputed open space is neutral.</p></details>
+        <section class="panel">
+          <h2>Settings</h2>
+          <div class="settings-grid">
+            <div>
+              <label for="boardSize" style="font-size:12px;display:block;margin-bottom:4px">Board size</label>
+              <select id="boardSize"><option value="19">19 × 19</option><option value="13">13 × 13</option><option value="9">9 × 9</option></select>
+            </div>
+            <div>
+              <label for="opponent" style="font-size:12px;display:block;margin-bottom:4px">Play mode</label>
+              <select id="opponent"><option value="local">Two players</option><option value="computer">Practice (computer)</option></select>
+            </div>
+            <div>
+              <label for="komi" style="font-size:12px;display:block;margin-bottom:4px">Komi</label>
+              <select id="komi"><option value="6.5">6.5</option><option value="7.5">7.5</option><option value="0.5">0.5</option><option value="0">0</option></select>
+            </div>
+            <div>
+              <label for="handicap" style="font-size:12px;display:block;margin-bottom:4px">Handicap</label>
+              <select id="handicap"><option value="0">None</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>
+            </div>
+            <div>
+              <label for="coordinates" style="font-size:12px;display:block;margin-bottom:4px">Coordinates</label>
+              <select id="coordinates"><option value="on">Show</option><option value="off">Hide</option></select>
+            </div>
+          </div>
+          <p style="font-size:11px;color:var(--muted);margin-top:8px">Handicap stones are placed before the game.</p>
+        </section>
+        <section class="panel">
+          <h2>Move record</h2>
+          <ol class="move-list" id="moveList"></ol>
+        </section>
+        <section class="panel learn">
+          <h2>Basics</h2>
+          <details>
+            <summary>Liberties &amp; captures</summary>
+            <p>Liberties are the empty intersections adjacent to a stone. When you surround a group completely, those stones are captured.</p>
+          </details>
+          <details>
+            <summary>Ko &amp; passing</summary>
+            <p>You cannot recreate an earlier position (ko rule). Pass when you have no moves; two passes end the game and score.</p>
+          </details>
+          <details>
+            <summary>Scoring</summary>
+            <p>Chinese area scoring counts stones plus surrounded empty territory.</p>
+          </details>
         </section>
       </aside>
-    </main>
-    <footer class="footer"><span>Made for the love of the game.</span><span>Local play · SGF supported · Your game saves automatically</span></footer>
-  </div>
+    </div>
+  </main>
+  <p class="footer">Made for the love of Go. Local play &middot; SGF supported &middot; Saves automatically.</p>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>
-    (()=>{
-      "use strict";
-      const STORAGE_KEY="weiqi-com-game-v1";
-      const SIZE_KEY="weiqi-com-size-v1";
-      const canvas=document.getElementById("board");
-      const ctx=canvas.getContext("2d");
-      const el=id=>document.getElementById(id);
-      const LETTERS="ABCDEFGHJKLMNOPQRST";
-      let size=19,coordinates=true,komi=6.5,mode="local",toastTimer,aiTimer,boardFocused=false,cursor={x:9,y:9};
-      let game;
+    "use strict";
+    const LETTERS = "ABCDEFGHJKLMNOPQRST";
+    let board, ctx;
+    let cellSize = 31.5;
+    let lineWidth = 1.2;
+    let boardPadding = 40;
+    let cursor = { x: 9, y: 9 };
+    let boardSize = 19;
+    let coordinates = true;
+    let showCoordinates = true;
+    let komi = 6.5;
+    let mode = "local";
+    let game = null;
+    let aiTimer = null;
+    let toastTimer = null;
+    let boardFocused = false;
+    let showScore = false;
+    const SIZE_KEY = "weiqi-size";
+    const STORAGE_KEY = "weiqi-game";
+    const coordsKey = "weiqi-coords";
 
-      function handicapPositions(boardSize,count){
-        const star=boardSize===9?[2,6]:boardSize===13?[3,9]:[3,9,15];
-        const low=star[0],high=star.at(-1),mid=Math.floor(boardSize/2);
-        return[[high,low],[low,high],[high,high],[low,low],[mid,mid],[mid,low],[mid,high],[low,mid],[high,mid]].slice(0,count)
-      }
-      function freshGame(boardSize=size,options={}){
-        size=boardSize;cursor={x:Math.floor(size/2),y:Math.floor(size/2)};komi=Number(options.komi??Number(el("komi").value));mode=options.mode??el("opponent").value;
-        const board=Array(size*size).fill(0);const handicap=Number(options.handicap??el("handicap").value);
-        for(const[x,y]of handicapPositions(size,handicap))board[y*size+x]=1;
-        const initialTurn=handicap?2:1;
-        game={board,turn:initialTurn,handicap,captures:[0,0,0],passes:0,gameOver:false,scoring:false,history:[],undo:[],positions:[board.join("")]};
-        el("boardSize").value=String(size);el("komi").value=String(komi);el("opponent").value=mode;
-        if(options.handicap!==undefined)el("handicap").value=String(options.handicap);
-        save();draw();render();
-      }
+    function $(id) { return document.getElementById(id); }
 
-      function groupAt(board,start){
-        const color=board[start];if(!color)return{stones:[],liberties:new Set()};
-        const stones=[],liberties=new Set(),seen=new Set([start]),stack=[start];
-        while(stack.length){const index=stack.pop();stones.push(index);
-          for(const next of neighbors(index)){if(board[next]===0)liberties.add(next);else if(board[next]===color&&!seen.has(next)){seen.add(next);stack.push(next)}}
-        }
-        return{stones,liberties};
+    function init() {
+      board = $("board");
+      ctx = board.getContext("2d");
+      board.addEventListener("click", onBoardClick);
+      board.addEventListener("focus", onBoardFocus);
+      board.addEventListener("blur", onBoardBlur);
+      board.addEventListener("keydown", onBoardKey);
+      window.addEventListener("resize", draw);
+      window.addEventListener("keydown", onGlobalKey);
+      $("importSgf").addEventListener("click", onImportSgf);
+      $("sgfFile").addEventListener("change", onSgfFileSelect);
+      $("undoBtn").addEventListener("click", undo);
+      $("passBtn").addEventListener("click", passTurn);
+      $("resignBtn").addEventListener("click", resign);
+      $("newGameBtn").addEventListener("click", newGame);
+      $("boardSize").addEventListener("change", onBoardSizeChange);
+      $("opponent").addEventListener("change", onOpponentChange);
+      $("komi").addEventListener("change", onKomiChange);
+      $("handicap").addEventListener("change", onHandicapChange);
+      $("coordinates").addEventListener("change", onCoordsChange);
+      const saved = loadSavedGame();
+      if (saved) {
+        loadFromSaved(saved);
+      } else {
+        startGame(19);
       }
-      function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({size,komi,mode,coordinates,game}))}catch{}}
-      function snapshot(){return JSON.parse(JSON.stringify({board:game.board,turn:game.turn,handicap:game.handicap,captures:game.captures,passes:game.passes,gameOver:game.gameOver,scoring:game.scoring,history:game.history,positions:game.positions}))}
-      function restore(value){Object.assign(game,value)}
-      function remember(){game.undo.push(snapshot())}
-      function loadSaved(){
-        try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));if(!saved?.game||![9,13,19].includes(saved.size))return false;
-          size=saved.size;komi=Number(saved.komi)||0;mode=saved.mode||"local";coordinates=saved.coordinates!==false;
-          game=saved.game;if(!Array.isArray(game.board)||game.board.length!==size*size)return false;
-          game.undo??=[];game.positions??=[game.board.join("")];el("boardSize").value=String(size);el("komi").value=String(komi);el("opponent").value=mode;el("coordinateToggle").value=coordinates?"on":"off";return true
-        }catch{return false}
+      updateCursorWithinBounds();
+      render();
+      scheduleAi();
+    }
+
+    function startGame(size) {
+      boardSize = size;
+      cursor = { x: Math.floor(size / 2), y: Math.floor(size / 2) };
+      komi = Number($("komi").value);
+      mode = $("opponent").value;
+      coordinates = $("coordinates").value === "on";
+      const board = Array(size * size).fill(0);
+      const handicapCount = Number($("handicap").value);
+      for (const [x, y] of handicapStones(size, handicapCount)) {
+        board[y * size + x] = 1;
       }
-      function draw(){
-        const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;
-        const dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(rect.width*dpr);canvas.height=Math.round(rect.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
-        const w=rect.width,h=rect.height,pad=coordinates?Math.max(19,w*.046):Math.max(13,w*.027),step=(w-pad*2)/(size-1),radius=Math.max(4,Math.min(15,step*.47));
-        ctx.clearRect(0,0,w,h);
-        ctx.strokeStyle="#493a25";ctx.lineWidth=Math.max(.65,w/900);
-        for(let i=0;i<size;i++){const v=pad+i*step;ctx.beginPath();ctx.moveTo(pad,v);ctx.lineTo(w-pad,v);ctx.stroke();ctx.beginPath();ctx.moveTo(v,pad);ctx.lineTo(v,h-pad);ctx.stroke()}
-        const stars=size===9?[2,6]:size===13?[3,6,9]:[3,9,15];ctx.fillStyle="#493a25";
-        for(const x of stars)for(const y of stars){ctx.beginPath();ctx.arc(pad+x*step,pad+y*step,Math.max(1.6,step*.075),0,Math.PI*2);ctx.fill()}
-        if(coordinates){ctx.fillStyle="#765e3b";ctx.font=`${Math.max(8,Math.min(11,step*.43))}px ui-sans-serif, sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";
-          for(let i=0;i<size;i++){const label=LETTERS[i];ctx.fillText(label,pad+i*step,pad*.48);ctx.fillText(label,pad+i*step,h-pad*.48);ctx.fillText(String(size-i),pad*.49,pad+i*step);ctx.fillText(String(size-i),w-pad*.49,pad+i*step)}
-        }
-        if(game.scoring){const territories=territoryMap(game.board);for(let i=0;i<territories.length;i++)if(game.board[i]===0&&territories[i]){const x=pad+(i%size)*step,y=pad+Math.floor(i/size)*step;ctx.beginPath();ctx.fillStyle=territories[i]===1?"#2528269c":"#faf9f3";ctx.strokeStyle=territories[i]===2?"#25282680":"transparent";ctx.lineWidth=1;ctx.arc(x,y,Math.max(2.2,step*.16),0,Math.PI*2);ctx.fill();if(territories[i]===2)ctx.stroke()}}
-        for(let i=0;i<game.board.length;i++)if(game.board[i])drawStone(pad+(i%size)*step,pad+Math.floor(i/size)*step,radius,game.board[i]);
-        const last=game.history.at(-1);if(last?.type==="move"){const x=pad+last.x*step,y=pad+last.y*step;ctx.beginPath();ctx.fillStyle=last.color===1?"#f7f3e9":"#292d28";ctx.arc(x,y,Math.max(1.7,radius*.2),0,Math.PI*2);ctx.fill()}
-        if(boardFocused){ctx.beginPath();ctx.arc(pad+cursor.x*step,pad+cursor.y*step,radius*.8,0,Math.PI*2);ctx.strokeStyle="#536d57";ctx.lineWidth=2;ctx.stroke()}
-        canvas.dataset.pad=String(pad);canvas.dataset.step=String(step);canvas.dataset.width=String(w)
-      }
-      function drawStone(x,y,r,color){
-        ctx.save();ctx.shadowColor="#3c2d1a55";ctx.shadowBlur=r*.55;ctx.shadowOffsetY=r*.18;
-        const gradient=ctx.createRadialGradient(x-r*.34,y-r*.39,r*.06,x,y,r*1.12);
-        if(color===1){gradient.addColorStop(0,"#61635d");gradient.addColorStop(.35,"#343733");gradient.addColorStop(1,"#171a18")}
-        else{gradient.addColorStop(0,"#fffefb");gradient.addColorStop(.63,"#f1f0e8");gradient.addColorStop(1,"#cfcec5")}
-        ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=gradient;ctx.fill();ctx.restore()
-      }
-      function territoryMap(board){
-        const result=Array(board.length).fill(0),visited=new Set();
-        for(let i=0;i<board.length;i++){if(board[i]||visited.has(i))continue;
-          const region=[],colors=new Set(),stack=[i];visited.add(i);
-          while(stack.length){const current=stack.pop();region.push(current);for(const next of neighbors(current)){if(board[next])colors.add(board[next]);else if(!visited.has(next)){visited.add(next);stack.push(next)}}}
-          if(colors.size===1)for(const index of region)result[index]=colors.values().next().value;
-        }
-        return result
-      }
-      function score(){let black=0,white=0;const territory=territoryMap(game.board);
-        for(let i=0;i<game.board.length;i++){if(game.board[i]===1||territory[i]===1)black++;if(game.board[i]===2||territory[i]===2)white++}
-        return{black,white:white+komi,blackArea:black,whiteArea:white,margin:black-(white+komi)}
-      }
-      function render(){
-        const blackTurn=game.turn===1;el("turnStone").classList.toggle("white",!blackTurn);el("turnTitle").textContent=blackTurn?"Black":"White";
-        el("turnCaption").textContent=game.gameOver?(game.scoring?"Game complete":"Game over"):`${blackTurn?"Black":"White"} to play${mode==="computer"&&!blackTurn?" · computer":""}`;
-        el("turnHelp").textContent=game.gameOver?(game.scoring?"The board is scored by area. Start a fresh game whenever you are ready.":"Start a new game when you are ready for another."):"Place a stone on any empty intersection. Surround territory and capture stones to win.";
-        el("blackCaptures").textContent=String(game.captures[1]);el("whiteCaptures").textContent=String(game.captures[2]);
-        const result=score();el("blackTerritory").textContent=`${result.blackArea} area`;el("whiteTerritory").textContent=`${result.whiteArea} area`;
-        el("blackScore").textContent=String(result.black);el("whiteScore").textContent=Number.isInteger(result.white)?String(result.white):result.white.toFixed(1);
-        el("scoreNote").textContent=game.scoring?`Final area count · White includes ${komi} komi.`:`Estimate uses stones and surrounded empty intersections. White receives ${komi} komi.`;
-        el("scoreResult").hidden=!game.scoring;
-        el("scoreResult").textContent=game.scoring?(result.margin>0?`Black wins by ${result.margin}.`:result.margin<0?`White wins by ${Math.abs(result.margin)}.`:"The game is a draw."):"";
-        cursor.x=Math.min(cursor.x,size-1);cursor.y=Math.min(cursor.y,size-1);
-        const moves=game.history.length;el("moveCount").textContent=String(moves);const last=game.history.at(-1);
-        el("lastMoveLabel").textContent=last?.type==="move"?` · ${LETTERS[last.x]}${size-last.y}`:last?.type==="pass"?" · pass":"";
-        el("undoButton").disabled=!game.undo.length;el("passButton").disabled=game.gameOver||(mode==="computer"&&game.turn===2);el("board").setAttribute("aria-label",`${size} by ${size} Go board. ${game.turn===1?"Black":"White"} to play. Click an empty intersection to place a stone.`);
-        const list=el("moveList");list.replaceChildren();
-        if(!moves){const li=document.createElement("li");li.className="empty-record";li.textContent="Your first move is waiting.";list.append(li)}
-        else{game.history.slice(-150).forEach((move,index)=>{const li=document.createElement("li");const number=document.createElement("span");number.className="move-number";number.textContent=String(Math.max(1,moves-149)+index);const stone=document.createElement("span");stone.className=`record-stone${move.color===2?" white":""}`;stone.setAttribute("aria-label",move.color===1?"Black":"White");const label=document.createElement("span");label.textContent=move.type==="pass"?"Pass":move.type==="resign"?"Resign":`${LETTERS[move.x]}${size-move.y}`;li.append(number,stone,label);list.append(li)});list.scrollTop=list.scrollHeight}
-        const banner=el("gameBanner");banner.classList.toggle("visible",game.gameOver);
-        if(game.scoring)banner.innerHTML=`<strong>Two passes. Game complete.</strong> Final area score: Black ${result.black}, White ${Number.isInteger(result.white)?result.white:result.white.toFixed(1)} (including komi).`;
-        else if(game.gameOver){const winner=game.history.at(-1)?.color===1?"White":"Black";banner.innerHTML=`<strong>${winner} wins by resignation.</strong> Start a new game to play again.`}
-        draw()
-      }
-      function neighbors(index){const x=index%size,y=Math.floor(index/size),out=[];if(x>0)out.push(index-1);if(x<size-1)out.push(index+1);if(y>0)out.push(index-size);if(y<size-1)out.push(index+size);return out}
-      function play(x,y,{computer=false}={}){
-        if(game.gameOver||game.board[y*size+x]!==0||(!computer&&mode==="computer"&&game.turn===2))return false;
-        const index=y*size+x,color=game.turn,opponent=color===1?2:1,board=game.board.slice();board[index]=color;let captured=0;
-        for(const next of neighbors(index)){if(board[next]===opponent){const group=groupAt(board,next);if(group.liberties.size===0){captured+=group.stones.length;for(const stone of group.stones)board[stone]=0}}}
-        if(groupAt(board,index).liberties.size===0){notify("That move would leave your stones without liberties.");return false}
-        const position=board.join("");if(game.positions.includes(position)){notify("That move repeats an earlier board position (ko). ");return false}
-        remember();game.board=board;game.captures[color]+=captured;game.turn=opponent;game.passes=0;game.positions.push(position);game.history.push({type:"move",color,x,y});save();render();scheduleComputer();return true
-      }
-      function pass({computer=false}={}){if(game.gameOver||(!computer&&mode==="computer"&&game.turn===2))return;remember();const color=game.turn;game.history.push({type:"pass",color});game.passes++;game.turn=color===1?2:1;if(game.passes>=2){game.gameOver=true;game.scoring=true}save();render();scheduleComputer()}
-      function undo(){if(!game.undo.length)return;clearTimeout(aiTimer);restore(game.undo.pop());if(mode==="computer"&&game.turn===2&&game.undo.length)restore(game.undo.pop());save();render()}
-      function resign(){if(game.gameOver)return;remember();const color=game.turn;game.history.push({type:"resign",color});game.gameOver=true;game.scoring=false;save();render()}
-      function scheduleComputer(){clearTimeout(aiTimer);if(mode!=="computer"||game.turn!==2||game.gameOver)return;aiTimer=setTimeout(computerMove,260)}
-      function computerMove(){
-        if(game.gameOver||mode!=="computer"||game.turn!==2)return;
-        const candidates=[];const occupied=[];for(let i=0;i<game.board.length;i++)if(game.board[i])occupied.push(i);
-        for(let i=0;i<game.board.length;i++)if(!game.board[i]){const x=i%size,y=Math.floor(i/size);if(occupied.length&&Math.min(...occupied.map(stone=>Math.abs(stone%size-x)+Math.abs(Math.floor(stone/size)-y)))>Math.max(3,size/4))continue;
-          const board=game.board.slice();board[i]=2;let captures=0;for(const next of neighbors(i))if(board[next]===1){const group=groupAt(board,next);if(!group.liberties.size){captures+=group.stones.length;for(const stone of group.stones)board[stone]=0}}
-          if(!groupAt(board,i).liberties.size||game.positions.includes(board.join("")))continue;
-          let nearby=0,friendly=0;for(const next of neighbors(i)){if(game.board[next])nearby++;if(game.board[next]===2)friendly++}
-          const center=(size-1)/2,edge=Math.min(x,y,size-1-x,size-1-y),star=(x===Math.floor(size/4)||x===Math.floor(size/2)||x===Math.ceil(size*3/4))&&(y===Math.floor(size/4)||y===Math.floor(size/2)||y===Math.ceil(size*3/4));
-          const own=groupAt(board,i),pressure=neighbors(i).some(next=>game.board[next]===1&&groupAt(game.board,next).liberties.size===2);
-          const value=captures*9+(pressure?3:0)+(edge>=2?1.5:0)+(star?0.7:0)+Math.min(friendly,2)*.8+Math.random()*.9+(nearby===0?.2:0)-(own.liberties.size===1?8:0);
-          candidates.push({x,y,value})
-        }
-        candidates.sort((a,b)=>b.value-a.value);
-        if(candidates.length)play(candidates[0].x,candidates[0].y,{computer:true});else pass({computer:true})
-      }
-      function notify(message){const toast=el("toast");toast.textContent=message;toast.classList.add("visible");clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("visible"),2300)}
-      function intersectionFromEvent(event){const rect=canvas.getBoundingClientRect(),pad=Number(canvas.dataset.pad),step=Number(canvas.dataset.step);if(!step)return null;const x=Math.round((event.clientX-rect.left-pad)/step),y=Math.round((event.clientY-rect.top-pad)/step),tolerance=Math.min(.47,Math.max(.3,17/step));if(x<0||y<0||x>=size||y>=size||Math.abs(event.clientX-rect.left-(pad+x*step))>step*tolerance||Math.abs(event.clientY-rect.top-(pad+y*step))>step*tolerance)return null;return{x,y}}
-      canvas.addEventListener("click",event=>{const point=intersectionFromEvent(event);if(point)play(point.x,point.y)});
-      canvas.addEventListener("focus",()=>{boardFocused=true;draw()});canvas.addEventListener("blur",()=>{boardFocused=false;draw()});
-      canvas.addEventListener("keydown",event=>{const delta={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[event.key];if(delta){event.preventDefault();cursor={x:Math.max(0,Math.min(size-1,cursor.x+delta[0])),y:Math.max(0,Math.min(size-1,cursor.y+delta[1]))};draw()}else if(event.key==="Enter"||event.key===" "){event.preventDefault();play(cursor.x,cursor.y)}});
-      el("undoButton").addEventListener("click",undo);el("passButton").addEventListener("click",pass);el("resignButton").addEventListener("click",()=>{if(!game.gameOver&&window.confirm("Resign this game?"))resign()});el("newGameButton").addEventListener("click",()=>freshGame(size));el("clearRecordButton").addEventListener("click",()=>freshGame(size));
-      el("boardSize").addEventListener("change",event=>{localStorage.setItem(SIZE_KEY,event.target.value);freshGame(Number(event.target.value))});
-      el("komi").addEventListener("change",event=>{komi=Number(event.target.value);save();render()});
-      el("opponent").addEventListener("change",event=>{mode=event.target.value;save();render();scheduleComputer()});
-      el("coordinateToggle").addEventListener("change",event=>{coordinates=event.target.value==="on";save();draw()});
-      el("handicap").addEventListener("change",event=>freshGame(size,{handicap:Number(event.target.value)}));
-      el("exportButton").addEventListener("click",()=>{
-        const moves=game.history.map(move=>{const color=move.color===1?"B":"W";const point=move.type==="move"?`[${String.fromCharCode(97+move.x)}${String.fromCharCode(97+move.y)}]`:"[]";return`;${color}${point}`}).join("");
-        const setup=game.handicap?`HA[${game.handicap}]${handicapPositions(size,game.handicap).map(([x,y])=>`AB[${String.fromCharCode(97+x)}${String.fromCharCode(97+y)}]`).join("")}PL[W]`:"";
-        const sgf=`(;GM[1]FF[4]CA[UTF-8]AP[weiqi.com:1]SZ[${size}]KM[${komi}]${setup}RU[Chinese]${moves})`;
-        const link=document.createElement("a");link.href=URL.createObjectURL(new Blob([sgf],{type:"application/x-go-sgf;charset=utf-8"}));link.download=`weiqi-${new Date().toISOString().slice(0,10)}.sgf`;link.click();URL.revokeObjectURL(link.href)
-      });
-      el("importButton").addEventListener("click",()=>el("sgfFile").click());
-      el("sgfFile").addEventListener("change",async event=>{
-        const file=event.target.files?.[0];if(!file)return;
-        const previous={game,size,komi,mode};
-        try{
-          const text=await file.text();const sizeMatch=text.match(/\bSZ\[(9|13|19)\]/i),komiMatch=text.match(/\bKM\[([\d.]+)\]/i);
-          if(!sizeMatch)throw Error("Only standard 9, 13, and 19 board SGF files are supported.");
-          const setupMoves=[...text.matchAll(/\bAB\[([a-z]{2})\]/gi)],handicapMatch=text.match(/\bHA\[(\d+)\]/i),handicap=setupMoves.length||Number(handicapMatch?.[1])||0;
-          freshGame(Number(sizeMatch[1]),{komi:komiMatch?Number(komiMatch[1]):6.5,handicap:0});
-          if(handicap){game.handicap=handicap;game.board.fill(0);const positions=setupMoves.length?setupMoves.map(match=>[match[1].toLowerCase().charCodeAt(0)-97,match[1].toLowerCase().charCodeAt(1)-97]):handicapPositions(size,handicap);for(const[x,y]of positions){if(x<0||y<0||x>=size||y>=size)throw Error("The SGF contains an invalid handicap stone.");game.board[y*size+x]=1}game.turn=2;game.positions=[game.board.join("")];el("handicap").value=String(handicap)}
-          const moves=[...text.matchAll(/;([BW])\[([a-z]{0,2})\]/gi)];
-          for(const match of moves){const color=match[1].toUpperCase()==="B"?1:2,coord=match[2].toLowerCase();if(color!==game.turn)throw Error("The SGF contains an unsupported setup or move order.");if(!coord){remember();game.history.push({type:"pass",color});game.turn=color===1?2:1;game.passes++;if(game.passes>=2){game.gameOver=true;game.scoring=true}continue}
-            const x=coord.charCodeAt(0)-97,y=coord.charCodeAt(1)-97;if(x<0||y<0||x>=size||y>=size)throw Error("The SGF contains a move outside the board.");
-            const board=game.board.slice();board[y*size+x]=color;let captures=0;for(const next of neighbors(y*size+x)){const opponent=color===1?2:1;if(board[next]===opponent){const group=groupAt(board,next);if(!group.liberties.size){captures+=group.stones.length;for(const stone of group.stones)board[stone]=0}}}
-            const position=board.join("");if(game.board[y*size+x]||!groupAt(board,y*size+x).liberties.size||game.positions.includes(position))throw Error("The SGF contains an illegal move.");remember();game.board=board;game.captures[color]+=captures;game.history.push({type:"move",color,x,y});game.turn=color===1?2:1;game.passes=0;game.positions.push(position)
+      const turn = handicapCount > 0 ? 2 : 1;
+      game = {
+        board: board,
+        size: size,
+        turn: turn,
+        handicap: handicapCount,
+        captures: [0, 0, 0],
+        passes: 0,
+        gameOver: false,
+        scoring: false,
+        history: [],
+        undoStack: [],
+        positions: [board.join("")],
+      };
+      $("boardSize").value = String(size);
+      saveGameState();
+      draw();
+      render();
+    }
+
+    function handicapStones(size, count) {
+      const star4 = size === 9 ? [2, 6] : size === 13 ? [3, 9] : [3, 9, 15];
+      const low = star4[0];
+      const high = star4[star4.length - 1];
+      const mid = Math.floor(size / 2);
+      const positions = [
+        [high, low], [low, high], [high, high], [low, low],
+        [mid, mid], [mid, low], [mid, high], [low, mid], [high, mid],
+      ];
+      return positions.slice(0, count);
+    }
+
+    function neighbors(index, size = boardSize) {
+      const x = index % size;
+      const y = Math.floor(index / size);
+      const result = [];
+      if (x > 0) result.push(index - 1);
+      if (x < size - 1) result.push(index + 1);
+      if (y > 0) result.push(index - size);
+      if (y < size - 1) result.push(index + size);
+      return result;
+    }
+
+    function getGroup(board, start) {
+      const color = board[start];
+      if (!color) return { stones: [], liberties: new Set() };
+      const stones = [];
+      const liberties = new Set();
+      const seen = new Set([start]);
+      const stack = [start];
+      while (stack.length) {
+        const index = stack.pop();
+        stones.push(index);
+        for (const next of neighbors(index)) {
+          if (board[next] === 0) liberties.add(next);
+          else if (board[next] === color && !seen.has(next)) {
+            seen.add(next);
+            stack.push(next);
           }
-          save();render();notify(`Imported ${game.history.length} moves from SGF.`)
-        }catch(error){game=previous.game;size=previous.size;komi=previous.komi;mode=previous.mode;el("boardSize").value=String(size);el("komi").value=String(komi);el("opponent").value=mode;save();render();notify(error.message||"Could not read this SGF file.")}
-        event.target.value=""
+        }
+      }
+      return { stones, liberties };
+    }
+
+    function playMove(x, y, isComputer = false) {
+      if (game.gameOver || game.board[y * boardSize + x] !== 0) return false;
+      if (!isComputer && mode === "computer" && game.turn === 2) return false;
+      const index = y * boardSize + x;
+      const color = game.turn;
+      const opponent = color === 1 ? 2 : 1;
+      const newBoard = game.board.slice();
+      newBoard[index] = color;
+      let captured = 0;
+      for (const next of neighbors(index)) {
+        if (newBoard[next] === opponent) {
+          const group = getGroup(newBoard, next);
+          if (group.liberties.size === 0) {
+            captured += group.stones.length;
+            for (const stone of group.stones) newBoard[stone] = 0;
+          }
+        }
+      }
+      const ownGroup = getGroup(newBoard, index);
+      if (ownGroup.liberties.size === 0) {
+        showToast("That move has no liberties (suicide rule).");
+        return false;
+      }
+      const position = newBoard.join("");
+      if (game.positions.includes(position)) {
+        showToast("That would repeat a previous position (ko rule).");
+        return false;
+      }
+      pushUndoState();
+      game.board = newBoard;
+      game.captures[color] += captured;
+      game.turn = opponent;
+      game.passes = 0;
+      game.positions.push(position);
+      game.history.push({ type: "move", color, x, y });
+      saveGameState();
+      draw();
+      render();
+      scheduleAi();
+      return true;
+    }
+
+    function passTurn(isComputer = false) {
+      if (game.gameOver) return;
+      if (!isComputer && mode === "computer" && game.turn === 2) return;
+      pushUndoState();
+      const color = game.turn;
+      game.history.push({ type: "pass", color });
+      game.passes++;
+      game.turn = color === 1 ? 2 : 1;
+      if (game.passes >= 2) {
+        game.gameOver = true;
+        game.scoring = true;
+      }
+      saveGameState();
+      render();
+      scheduleAi();
+    }
+
+    function resign() {
+      if (game.gameOver) return;
+      pushUndoState();
+      const color = game.turn;
+      game.history.push({ type: "resign", color });
+      game.gameOver = true;
+      game.scoring = false;
+      saveGameState();
+      render();
+    }
+
+    function undo() {
+      if (!game.undoStack.length) return;
+      clearTimeout(aiTimer);
+      const state = game.undoStack.pop();
+      restoreGameState(state);
+      if (mode === "computer" && game.turn === 2 && game.undoStack.length) {
+        const prev = game.undoStack.pop();
+        restoreGameState(prev);
+      }
+      saveGameState();
+      draw();
+      render();
+    }
+
+    function pushUndoState() {
+      game.undoStack.push({
+        board: game.board.slice(),
+        turn: game.turn,
+        handicap: game.handicap,
+        captures: game.captures.slice(),
+        passes: game.passes,
+        gameOver: game.gameOver,
+        scoring: game.scoring,
+        history: game.history.slice(),
+        positions: game.positions.slice(),
       });
-      window.addEventListener("resize",draw);window.addEventListener("keydown",event=>{if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="z"){event.preventDefault();undo()}});
-      const storedSize=Number(localStorage.getItem(SIZE_KEY));if(loadSaved()){render();scheduleComputer()}else freshGame([9,13,19].includes(storedSize)?storedSize:19);el("coordinateToggle").value=coordinates?"on":"off";
-    })();
+    }
+
+    function restoreGameState(state) {
+      game.board = state.board;
+      game.turn = state.turn;
+      game.handicap = state.handicap;
+      game.captures = state.captures;
+      game.passes = state.passes;
+      game.gameOver = state.gameOver;
+      game.scoring = state.scoring;
+      game.history = state.history;
+      game.positions = state.positions;
+    }
+
+    function scheduleAi() {
+      clearTimeout(aiTimer);
+      if (mode === "computer" && game.turn === 2 && !game.gameOver) {
+        aiTimer = setTimeout(computerMove, 400);
+      }
+    }
+
+    function computerMove() {
+      if (game.gameOver || mode !== "computer" || game.turn !== 2) return;
+      const candidates = [];
+      const occupied = [];
+      for (let i = 0; i < game.board.length; i++) {
+        if (game.board[i]) occupied.push(i);
+      }
+      for (let i = 0; i < game.board.length; i++) {
+        if (game.board[i]) continue;
+        const x = i % boardSize;
+        const y = Math.floor(i / boardSize);
+        if (occupied.length && Math.min(...occupied.map(s => Math.abs(s % boardSize - x) + Math.abs(Math.floor(s / boardSize) - y))) > Math.max(3, boardSize / 4)) continue;
+        const testBoard = game.board.slice();
+        testBoard[i] = 2;
+        let captures = 0;
+        for (const next of neighbors(i)) {
+          if (testBoard[next] === 1) {
+            const group = getGroup(testBoard, next);
+            if (group.liberties.size === 0) {
+              captures += group.stones.length;
+              for (const s of group.stones) testBoard[s] = 0;
+            }
+          }
+        }
+        if (getGroup(testBoard, i).liberties.size === 0) continue;
+        if (game.positions.includes(testBoard.join(""))) continue;
+        let nearby = 0, friendly = 0;
+        for (const next of neighbors(i)) {
+          if (game.board[next]) nearby++;
+          if (game.board[next] === 2) friendly++;
+        }
+        const edge = Math.min(x, y, boardSize - 1 - x, boardSize - 1 - y);
+        const center = (boardSize - 1) / 2;
+        const star = (x === Math.floor(boardSize / 4) || x === Math.floor(boardSize / 2) || x === Math.ceil(boardSize * 3 / 4)) &&
+                     (y === Math.floor(boardSize / 4) || y === Math.floor(boardSize / 2) || y === Math.ceil(boardSize * 3 / 4));
+        const ownGroup = getGroup(testBoard, i);
+        const pressure = neighbors(i).some(n => game.board[n] === 1 && getGroup(game.board, n).liberties.size === 2);
+        const distanceFromCenter = Math.abs(x - center) + Math.abs(y - center);
+        const value =
+          captures * 9 +
+          (pressure ? 3 : 0) +
+          (edge >= 2 ? 1.5 : 0) +
+          (star ? 0.7 : 0) +
+          Math.min(friendly, 2) * 0.8 +
+          Math.random() * 0.6 +
+          (nearby === 0 ? 0.2 : 0) -
+          (ownGroup.liberties.size === 1 ? 8 : 0) -
+          distanceFromCenter * 0.01;
+        candidates.push({ x, y, value });
+      }
+      if (candidates.length) {
+        candidates.sort((a, b) => b.value - a.value);
+        const best = candidates[Math.random() < 0.8 ? 0 : Math.floor(Math.random() * 3)];
+        playMove(best.x, best.y, true);
+      } else {
+        passTurn(true);
+      }
+    }
+
+    function computeScore() {
+      let black = 0, white = 0;
+      const territory = Array(game.board.length).fill(0);
+      const visited = new Set();
+      for (let i = 0; i < game.board.length; i++) {
+        if (game.board[i] || visited.has(i)) continue;
+        const region = [];
+        const colors = new Set();
+        const stack = [i];
+        visited.add(i);
+        while (stack.length) {
+          const cur = stack.pop();
+          region.push(cur);
+          for (const next of neighbors(cur)) {
+            if (game.board[next]) colors.add(game.board[next]);
+            else if (!visited.has(next)) {
+              visited.add(next);
+              stack.push(next);
+            }
+          }
+        }
+        if (colors.size === 1) {
+          const color = colors.values().next().value;
+          for (const idx of region) territory[idx] = color;
+        }
+      }
+      for (let i = 0; i < game.board.length; i++) {
+        if (game.board[i] === 1 || territory[i] === 1) black++;
+        if (game.board[i] === 2 || territory[i] === 2) white++;
+      }
+      return { black, white: white + komi };
+    }
+
+    function draw() {
+      const rect = $("board").getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = rect.width;
+      const h = rect.height;
+      const pad = coordinates ? Math.max(20, w * 0.05) : Math.max(14, w * 0.025);
+      cellSize = (w - pad * 2) / (boardSize - 1);
+      lineWidth = Math.max(0.8, w / 750);
+      boardPadding = pad;
+      $("board").width = Math.round(w * dpr);
+      $("board").height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      drawBoard(w, h, pad, cellSize);
+      drawStones(pad, cellSize);
+      highlightLastMove(pad, cellSize);
+      if (boardFocused) drawCursor(pad, cellSize);
+      if (game.scoring) drawTerritory(pad, cellSize);
+      drawCoords(w, h, pad, cellSize, boardSize);
+    }
+
+    function drawBoard(w, h, pad, step) {
+      const g = ctx;
+      g.clearRect(0, 0, w, h);
+      g.fillStyle = "#e8d5a3";
+      g.fillRect(0, 0, w, h);
+      g.strokeStyle = "#493a25";
+      g.lineWidth = lineWidth;
+      for (let i = 0; i < boardSize; i++) {
+        const pos = pad + i * step;
+        g.beginPath();
+        g.moveTo(pad + 8, pos);
+        g.lineTo(w - pad - 8, pos);
+        g.stroke();
+        g.beginPath();
+        g.moveTo(pos, pad + 8);
+        g.lineTo(pos, h - pad - 8);
+        g.stroke();
+      }
+      const stars = boardSize === 9 ? [2, 6] : boardSize === 13 ? [3, 6, 9] : [3, 9, 15];
+      g.fillStyle = "#493a25";
+      for (const x of stars) {
+        for (const y of stars) {
+          const pos = pad + x * step;
+          const posY = pad + y * step;
+          g.beginPath();
+          g.arc(pos, posY, Math.max(1.8, step * 0.08), 0, Math.PI * 2);
+          g.fill();
+        }
+      }
+    }
+
+    function drawStones(pad, step) {
+      const radius = Math.max(5, step * 0.42);
+      for (let i = 0; i < game.board.length; i++) {
+        if (game.board[i]) {
+          const x = pad + (i % boardSize) * step;
+          const y = pad + Math.floor(i / boardSize) * step;
+          drawStone(x, y, radius, game.board[i] === 1 ? "black" : "white");
+        }
+      }
+    }
+
+    function drawStone(x, y, r, color) {
+      const g = ctx;
+      g.save();
+      g.shadowColor = "rgba(0, 0, 0, 0.15)";
+      g.shadowBlur = r * 0.45;
+      g.shadowOffsetY = r * 0.18;
+      const grad = g.createRadialGradient(x - r * 0.3, y - r * 0.4, r * 0.1, x, y, r * 1.1);
+      if (color === "black") {
+        grad.addColorStop(0, "#7a7d78");
+        grad.addColorStop(0.4, "#3a3d3a");
+        grad.addColorStop(1, "#121416");
+      } else {
+        grad.addColorStop(0, "#ffffff");
+        grad.addColorStop(0.6, "#f0f0ea");
+        grad.addColorStop(1, "#d8d7cf");
+      }
+      g.beginPath();
+      g.arc(x, y, r, 0, Math.PI * 2);
+      g.fillStyle = grad;
+      g.fill();
+      g.restore();
+    }
+
+    function highlightLastMove(pad, step) {
+      const last = game.history.at(-1);
+      if (last && last.type === "move") {
+        const x = pad + last.x * step;
+        const y = pad + last.y * step;
+        const r = Math.max(1.5, cellSize * 0.18);
+        ctx.save();
+        ctx.fillStyle = last.color === 1 ? "#f5f2e9" : "#1f2121";
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function drawCursor(pad, step) {
+      const x = pad + cursor.x * step;
+      const y = pad + cursor.y * step;
+      const r = cellSize * 0.12;
+      ctx.save();
+      ctx.strokeStyle = "rgba(90, 117, 87, 0.4)";
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
+
+    function drawTerritory(pad, step) {
+      const territory = Array(game.board.length).fill(0);
+      const visited = new Set();
+      for (let i = 0; i < game.board.length; i++) {
+        if (game.board[i] || visited.has(i)) continue;
+        const region = [];
+        const colors = new Set();
+        const stack = [i];
+        visited.add(i);
+        while (stack.length) {
+          const cur = stack.pop();
+          region.push(cur);
+          for (const next of neighbors(cur)) {
+            if (game.board[next]) colors.add(game.board[next]);
+            else if (!visited.has(next)) {
+              visited.add(next);
+              stack.push(next);
+            }
+          }
+        }
+        if (colors.size === 1) {
+          const color = colors.values().next().value;
+          for (const idx of region) territory[idx] = color;
+        }
+      }
+      const radius = Math.max(3, step * 0.18);
+      for (let i = 0; i < territory.length; i++) {
+        if (game.board[i] === 0 && territory[i]) {
+          const x = pad + (i % boardSize) * step;
+          const y = pad + Math.floor(i / boardSize) * step;
+          ctx.fillStyle = territory[i] === 1 ? "rgba(37, 40, 38, 0.35)" : "rgba(255, 255, 245, 0.7)";
+          ctx.strokeStyle = territory[i] === 2 ? "rgba(37, 40, 38, 0.2)" : "transparent";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fill();
+          if (territory[i] === 2) ctx.stroke();
+        }
+      }
+    }
+
+    function drawCoords(w, h, pad, step, size) {
+      if (!showCoordinates) return;
+      ctx.fillStyle = "#765e3b";
+      ctx.font = `${Math.max(8, Math.min(11, step * 0.4))}px ui-sans-serif, sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      for (let i = 0; i < size; i++) {
+        const label = LETTERS[i];
+        const pos = pad + i * step;
+        ctx.fillText(label, pos, pad * 0.5);
+        ctx.fillText(label, pos, h - pad * 0.5);
+        const num = String(size - i);
+        ctx.fillText(num, pad * 0.5, pos);
+        ctx.fillText(num, w - pad * 0.5, pos);
+      }
+    }
+
+    function render() {
+      const isBlackTurn = game.turn === 1;
+      const turnEl = $("turnTitle");
+      if (game.gameOver) {
+        turnEl.textContent = game.scoring ? "Game complete" : "Game over";
+      } else {
+        turnEl.textContent = (isBlackTurn ? "Black" : "White") + " to play";
+        if (mode === "computer" && !isBlackTurn) {
+          turnEl.textContent += " (computer)";
+        }
+      }
+      const helpEl = $("turnHelp");
+      if (game.gameOver) {
+        helpEl.textContent = "Start a new game to play again.";
+      } else if (mode === "computer" && !isBlackTurn) {
+        helpEl.textContent = "Waiting for the computer to think...";
+      } else {
+        helpEl.textContent = "Click an empty intersection to place a stone. Remove your opponent's stones to capture them.";
+      }
+      $("blackCaptures").textContent = String(game.captures[1]);
+      $("whiteCaptures").textContent = String(game.captures[2]);
+      const scores = computeScore();
+      $("blackScore").textContent = String(scores.black);
+      $("whiteScore").textContent = String(scores.white % 1 === 0 ? scores.white : scores.white.toFixed(1));
+      $("moveCount").textContent = String(game.history.filter(m => m.type === "move").length);
+      if (game.gameOver) {
+        $("passBtn").disabled = true;
+      } else {
+        $("passBtn").disabled = mode === "computer" && !isBlackTurn;
+      }
+      drawMoveList();
+    }
+
+    function drawMoveList() {
+      const list = $("moveList");
+      list.innerHTML = "";
+      const moves = game.history.filter(m => m.type === "move");
+      if (!moves.length) {
+        const li = document.createElement("li");
+        li.textContent = "Your first move is waiting.";
+        li.style.fontStyle = "italic";
+        li.style.color = "var(--muted)";
+        list.appendChild(li);
+        return;
+      }
+      moves.slice(-64).forEach((move, index) => {
+        const li = document.createElement("li");
+        const num = document.createElement("span");
+        num.textContent = String(Math.max(1, moves.length - 63) + index);
+        const label = document.createElement("span");
+        label.textContent = `${LETTERS[move.x]}${boardSize - move.y}`;
+        list.appendChild(li);
+        li.appendChild(num);
+        li.appendChild(label);
+      });
+      list.scrollTop = list.scrollHeight;
+    }
+
+    function onBoardClick(e) {
+      const rect = board.getBoundingClientRect();
+      const scaleX = board.width / board.height;
+      const pad = boardPadding;
+      const step = cellSize;
+      if (!step || !pad) return;
+      const bx = e.clientX - rect.left;
+      const by = e.clientY - rect.top;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const x = (bx - pad) / step;
+      const y = (by - pad) / step;
+      const tolerance = Math.min(0.4, 0.5);
+      const gridX = Math.round(x);
+      const gridY = Math.round(y);
+      if (
+        gridX < 0 || gridY < 0 || gridX >= boardSize || gridY >= boardSize ||
+        Math.abs(bx - (pad + gridX * step)) > step * tolerance ||
+        Math.abs(by - (pad + gridY * step)) > step * tolerance
+      ) return;
+      playMove(gridX, gridY);
+    }
+
+    function onBoardFocus() {
+      boardFocused = true;
+      draw();
+    }
+
+    function onBoardBlur() {
+      boardFocused = false;
+      draw();
+    }
+
+    function onBoardKey(e) {
+      const { key } = e;
+      if (key === "ArrowUp") { cursor.y = Math.max(0, cursor.y - 1); draw(); }
+      else if (key === "ArrowDown") { cursor.y = Math.min(boardSize - 1, cursor.y + 1); draw(); }
+      else if (key === "ArrowLeft") { cursor.x = Math.max(0, cursor.x - 1); draw(); }
+      else if (key === "ArrowRight") { cursor.x = Math.min(boardSize - 1, cursor.x + 1); draw(); }
+      else if (key === "Enter" || key === " ") { e.preventDefault(); playMove(cursor.x, cursor.y); }
+    }
+
+    function onGlobalKey(e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "z" || e.key === "Z")) {
+        e.preventDefault();
+        undo();
+      }
+    }
+
+    function updateCursorWithinBounds() {
+      cursor.x = Math.min(cursor.x, boardSize - 1);
+      cursor.y = Math.min(cursor.y, boardSize - 1);
+    }
+
+    function newGame() {
+      startGame(boardSize);
+    }
+
+    function onBoardSizeChange() {
+      const size = Number($("boardSize").value);
+      savePreference(SIZE_KEY, size);
+      startGame(size);
+      saveGameState();
+    }
+
+    function onOpponentChange() {
+      mode = $("opponent").value;
+      saveGameState();
+      render();
+      scheduleAi();
+    }
+
+    function onKomiChange() {
+      komi = Number($("komi").value);
+      saveGameState();
+      render();
+    }
+
+    function onHandicapChange() {
+      savePreference("weiqi-handicap", Number($("handicap").value));
+      startGame(Number($("boardSize").value));
+    }
+
+    function onCoordsChange() {
+      coordinates = $("coordinates").value === "on";
+      showCoordinates = coordinates;
+      savePreference(coordsKey, coordinates ? "on" : "off");
+      draw();
+    }
+
+    function onImportSgf() {
+      $("sgfFile").click();
+    }
+
+    function onSgfFileSelect(e) {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const text = ev.target.result;
+        importSgf(text);
+      };
+      reader.readAsText(file);
+      e.target.value = "";
+    }
+
+    function importSgf(text) {
+      try {
+        const sizeMatch = text.match(/\bSZ\[(9|13|19)\]/i);
+        const komiMatch = text.match(/\bKM\[([\d.]+)\]/i);
+        if (!sizeMatch) throw new Error("Only standard 9×9, 13×13, and 19×19 boards are supported.");
+        const importSize = Number(sizeMatch[1]);
+        const setupMoves = [...text.matchAll(/\bAB\[([a-z]{2})\]/gi)];
+        const haMatch = text.match(/\bHA\[(\d+)\]/i);
+        const hand = setupMoves.length || Number(haMatch?.[1]) || 0;
+        komi = komiMatch ? Number(komiMatch[1]) : 6.5;
+        boardSize = importSize;
+        cursor = { x: Math.floor(importSize / 2), y: Math.floor(importSize / 2) };
+        mode = $("opponent").value;
+        const newBoard = Array(importSize * importSize).fill(0);
+        game = {
+          board: newBoard,
+          size: importSize,
+          turn: 1,
+          handicap: hand,
+          captures: [0, 0, 0],
+          passes: 0,
+          gameOver: false,
+          scoring: false,
+          history: [],
+          undoStack: [],
+          positions: [newBoard.join("")],
+        };
+        $("boardSize").value = String(importSize);
+        $("komi").value = String(komi);
+        if (hand) {
+          const positions = setupMoves.length
+            ? setupMoves.map(m => {
+                const c = m[1].toLowerCase();
+                return [c.charCodeAt(0) - 97, c.charCodeAt(1) - 97];
+              })
+            : handicapStones(importSize, hand).map(([x, y]) => [x, y]);
+          for (const [x, y] of positions) {
+            if (x < 0 || y < 0 || x >= importSize || y >= importSize)
+              throw new Error("Invalid handicap position in SGF.");
+            game.board[y * importSize + x] = 1;
+          }
+          game.turn = 2;
+          game.handicap = hand;
+          game.positions = [game.board.join("")];
+          $("handicap").value = String(hand);
+          savePreference("weiqi-handicap", hand);
+        }
+        const moves = [...text.matchAll(/;([BW])\[([a-z]{0,2})\]/gi)];
+        for (const match of moves) {
+          const color = match[1].toUpperCase() === "B" ? 1 : 2;
+          const coord = match[2].toLowerCase();
+          if (color !== game.turn)
+            throw new Error("This SGF move order is unsupported.");
+          if (!coord) {
+            pushUndoState();
+            game.history.push({ type: "pass", color });
+            game.passes++;
+            game.turn = color === 1 ? 2 : 1;
+            if (game.passes >= 2) {
+              game.gameOver = true;
+              game.scoring = true;
+            }
+            continue;
+          }
+          const x = coord.charCodeAt(0) - 97;
+          const y = coord.charCodeAt(1) - 97;
+          if (x < 0 || y < 0 || x >= importSize || y >= importSize)
+            throw new Error("Move outside board in SGF.");
+          const result = applySgfMove(x, y, color);
+          if (!result) throw new Error("Illegal move in SGF.");
+        }
+        saveGameState();
+        draw();
+        render();
+        showToast(`Imported ${game.history.filter(m => m.type === "move").length} moves.`);
+        scheduleAi();
+      } catch (err) {
+        showToast(err.message || "Could not read this SGF file.");
+      }
+    }
+
+    function applySgfMove(x, y, color) {
+      const index = y * boardSize + x;
+      const opponent = color === 1 ? 2 : 1;
+      const testBoard = game.board.slice();
+      testBoard[index] = color;
+      let captures = 0;
+      for (const next of neighbors(index)) {
+        if (testBoard[next] === opponent) {
+          const group = getGroup(testBoard, next);
+          if (group.liberties.size === 0) {
+            captures += group.stones.length;
+            for (const s of group.stones) testBoard[s] = 0;
+          }
+        }
+      }
+      if (getGroup(testBoard, index).liberties.size === 0) return false;
+      game.board = testBoard;
+      game.captures[color] += captures;
+      game.turn = opponent;
+      game.passes = 0;
+      game.positions.push(testBoard.join(""));
+      game.history.push({ type: "move", color, x, y });
+      return true;
+    }
+
+    function saveGameState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          board: game.board,
+          size: boardSize,
+          turn: game.turn,
+          komi,
+          mode,
+          coordinates: showCoordinates,
+          handicap: game.handicap,
+          captures: game.captures,
+          passes: game.passes,
+          gameOver: game.gameOver,
+          scoring: game.scoring,
+          history: game.history,
+          positions: game.positions,
+        }));
+      } catch (e) {}
+    }
+
+    function loadSavedGame() {
+      try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function loadFromSaved(data) {
+      const valid = [9, 13, 19].includes(data.size);
+      if (!valid) {
+        startGame(19);
+        return;
+      }
+      boardSize = data.size;
+      komi = data.komi || 0;
+      mode = data.mode || "local";
+      showCoordinates = data.coordinates !== false;
+      coordinates = showCoordinates;
+      cursor = { x: Math.floor(boardSize / 2), y: Math.floor(boardSize / 2) };
+      game = {
+        board: data.board || Array(boardSize * boardSize).fill(0),
+        size: boardSize,
+        turn: data.turn || 1,
+        handicap: data.handicap || 0,
+        captures: data.captures || [0, 0, 0],
+        passes: data.passes || 0,
+        gameOver: data.gameOver || false,
+        scoring: data.scoring || false,
+        history: data.history || [],
+        undoStack: [],
+        positions: data.positions || [data.board?.join("") || Array(boardSize * boardSize).fill(0).join("")],
+      };
+      $("boardSize").value = String(boardSize);
+      $("komi").value = String(komi);
+      $("opponent").value = mode;
+      $("coordinates").value = showCoordinates ? "on" : "off";
+      $("handicap").value = String(game.handicap);
+    }
+
+    function savePreference(key, value) {
+      try { localStorage.setItem(key, String(value)); } catch (e) {}
+    }
+
+    function showToast(message) {
+      const toast = $("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("visible"), 2300);
+    }
+
+    window.addEventListener("load", init);
   </script>
 </body>
 </html>
