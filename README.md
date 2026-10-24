@@ -1,2 +1,2 @@
 # weiqi.com
-weiqi
+A weiqi app for everyone.
